@@ -2,6 +2,7 @@ const sdk = require("matrix-js-sdk");
 const fs = require("fs");
 
 const url = "http://localhost:8008";
+const chatBotId = "@testbot0001:myserver.invalid";
 
 async function createClient(accessToken) {
   try {
@@ -20,7 +21,7 @@ async function createBotRoom(client) {
   try {
     const room = await client.createRoom({
       visibility: "private",
-      invite: ["@testbot0001:myserver.invalid"],
+      invite: [chatBotId],
       name: "testroommega",
     });
 

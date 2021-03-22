@@ -1,16 +1,12 @@
 const axios = require("axios");
-
 const fs = require("fs");
 
-function delay() {
-  return new Promise((resolve) => setTimeout(resolve, 20));
-}
+const url = "http://localhost:8008";
 
 async function registerUser(i) {
   try {
-    await delay();
     const response = await axios.post(
-      `http://localhost:8008/_matrix/client/r0/register`,
+      `${url}/_matrix/client/r0/register`,
       {
         auth: {
           type: "m.login.dummy",
@@ -38,9 +34,7 @@ async function registerUser(i) {
 async function registerMany(count, start) {
   const arr = Array.from(new Array(count));
 
-  const result = await Promise.all(
-    arr.map((element, i) => registerUser(i + start))
-  );
+  const result = await Promise.all(arr.map((_, i) => registerUser(i + start)));
 
   fs.readFile("./matrixUsers.json", (err, data) => {
     if (err) console.log("No file");
@@ -56,4 +50,7 @@ async function registerMany(count, start) {
   });
 }
 
-registerMany(100, 1000);
+const countOfUsers = 100;
+const firstUserIndex = 1100;
+
+registerMany(countOfUsers, firstUserIndex);
