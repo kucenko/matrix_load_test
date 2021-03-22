@@ -1,0 +1,13 @@
+{
+  "name": "matrix-load-test",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "create-users": "node createUsers.js"
+  },
+  "dependencies": {
+    "matrix-js-sdk": "^9.9.0",
+    "axios": "^0.21.1"
+  }
+}
