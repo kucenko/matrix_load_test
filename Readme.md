@@ -23,3 +23,6 @@
 3. Set-up chatBotId in index.js file
 4. Set-up url endpoint in index.js file
 5. `npm run start`
+
+
+Link to chat bot https://github.com/turt2live/matrix-bot-sdk
