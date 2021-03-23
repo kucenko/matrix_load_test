@@ -32,14 +32,20 @@ async function registerUser(i) {
 }
 
 async function registerMany(count, start) {
+  console.log(`Script started`);
   const arr = Array.from(new Array(count));
+  const startTime = new Date().getTime();
 
   const result = await Promise.all(arr.map((_, i) => registerUser(i + start)));
 
+  const endTime = new Date().getTime();
+  console.log(`Script time: ${endTime - startTime}ms`);
+
   fs.readFile("./matrixUsers.json", (err, data) => {
     if (err) console.log("No file");
-    let prewUserData = JSON.parse(data);
-    const newData = prewUserData.concat(result);
+    console.log("data", data);
+    let prevUserData = data ? JSON.parse(data) : [];
+    const newData = prevUserData.concat(result);
     fs.writeFile("./matrixUsers.json", JSON.stringify(newData), (err) => {
       if (err) {
         console.error(err);
@@ -50,7 +56,7 @@ async function registerMany(count, start) {
   });
 }
 
-const countOfUsers = 100;
-const firstUserIndex = 1100;
+const countOfUsers = 2000;
+const firstUserIndex = 6000;
 
 registerMany(countOfUsers, firstUserIndex);

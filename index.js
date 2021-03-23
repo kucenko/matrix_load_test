@@ -81,8 +81,11 @@ async function createBotRoomAndSendMsg(client, index) {
 
 const loadTest = async () => {
   try {
+    console.log(`Script started`);
     let file = fs.readFileSync("./matrixUsers.json", "utf8");
-    const users = [...JSON.parse(file)];
+    const users = [...JSON.parse(file)]
+
+    const startTime = new Date().getTime();
 
     console.log("Start creating clients");
     const clientsArr = await Promise.all(
@@ -96,6 +99,9 @@ const loadTest = async () => {
         createBotRoomAndSendMsg(element.client, index)
       )
     );
+
+    const endTime = new Date().getTime();
+    console.log(`Script time: ${endTime - startTime}ms`);
   } catch (e) {
     console.log("loadTest", e);
   }
