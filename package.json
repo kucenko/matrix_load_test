@@ -4,10 +4,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "create-users": "node createUsers.js"
+    "create-users": "node createUsers.js",
+    "bot": "node chatBot.js"
   },
   "dependencies": {
     "matrix-js-sdk": "^9.9.0",
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "matrix-bot-sdk": "^0.5.16"
   }
 }

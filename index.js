@@ -1,8 +1,9 @@
 const sdk = require("matrix-js-sdk");
 const fs = require("fs");
+const constants = require("./constants");
 
-const url = "http://localhost:8008";
-const chatBotId = "@testbot0001:myserver.invalid";
+const url = constants.homeserverUrl;
+const chatBotId = constants.chatBotId;
 
 async function createClient(accessToken) {
   try {
@@ -83,7 +84,7 @@ const loadTest = async () => {
   try {
     console.log(`Script started`);
     let file = fs.readFileSync("./matrixUsers.json", "utf8");
-    const users = [...JSON.parse(file)]
+    const users = [...JSON.parse(file)];
 
     const startTime = new Date().getTime();
 
