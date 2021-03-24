@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "create-users": "node createUsers.js",
-    "bot": "node chatBot.js"
+    "chat-bot": "node chatBot.js"
   },
   "dependencies": {
     "matrix-js-sdk": "^9.9.0",

@@ -8,6 +8,7 @@ package-lock.json
 
 # testing
 /matrixUsers.json
+/botData.json
 
 # production
 /build
@@ -23,3 +24,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .idea/
+
+# synapse
+/data/media_store

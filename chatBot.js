@@ -6,7 +6,8 @@ const RichReply = require("matrix-bot-sdk").RichReply;
 
 const constants = require("./constants");
 const homeserverUrl = constants.homeserverUrl;
-const accessToken = constants.botToken;
+// const accessToken = constants.botToken;
+const botToken = require("./botData.json").access_token;
 
 // We'll want to make sure the bot doesn't have to do an initial sync every
 // time it restarts, so we need to prepare a storage provider. Here we use
@@ -14,7 +15,7 @@ const accessToken = constants.botToken;
 const storage = new SimpleFsStorageProvider("hello-bot.json");
 
 // Now we can create the client and set it up to automatically join rooms.
-const client = new MatrixClient(homeserverUrl, accessToken, storage);
+const client = new MatrixClient(homeserverUrl, botToken, storage);
 
 AutojoinRoomsMixin.setupOnClient(client);
 

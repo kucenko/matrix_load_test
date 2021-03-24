@@ -1,6 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
-const constants = require("./constants");
+const { addRequest, addFailedRequest } = require("../utils/rpc_meter");
+const constants = require("../constants");
 
 const url = constants.homeserverUrl;
 
@@ -23,44 +24,39 @@ async function registerUser(i) {
     );
 
     if (response.data) {
+      addRequest();
       return response.data;
     }
-
+    addFailedRequest();
     return {};
   } catch (e) {
-    console.log("Err", e);
+    addFailedRequest();
   }
 }
 
 async function registerMany(count, start) {
-  console.log(`Script started`);
+  console.log(`User creation started`);
   const arr = Array.from(new Array(count));
   const startTime = new Date().getTime();
 
   const result = await Promise.all(arr.map((_, i) => registerUser(i + start)));
 
   const endTime = new Date().getTime();
-  console.log(`Script time: ${endTime - startTime}ms`);
+  console.log(`User creation time: ${endTime - startTime}ms`);
 
-  fs.readFile("./matrixUsers.json", (err, data) => {
-    if (err) console.log("No file");
-    console.log("data", data);
-    let prevUserData = data ? JSON.parse(data) : [];
-    const newData = prevUserData.concat(result);
-    fs.writeFile("./matrixUsers.json", JSON.stringify(newData), (err) => {
+  return new Promise((resolve) => {
+    fs.writeFile("./matrixUsers.json", JSON.stringify(result), (err) => {
       if (err) {
         console.error(err);
         return;
       }
       console.log("Logs File has been created");
+      resolve();
     });
   });
 }
 
-const countOfUsers = 2000;
-const firstUserIndex = 6000;
-
-registerMany(countOfUsers, firstUserIndex);
+module.exports = registerMany;
 
 // const getToken = async (login, password) => {
 //   try {
@@ -90,4 +86,4 @@ registerMany(countOfUsers, firstUserIndex);
 //   }
 // };
 
-// getToken();
+// getToken("testloadbot0001", "testloadbot0001");
