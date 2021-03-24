@@ -9,6 +9,7 @@ package-lock.json
 # testing
 /matrixUsers.json
 /botData.json
+/hello-bot.json
 
 # production
 /build

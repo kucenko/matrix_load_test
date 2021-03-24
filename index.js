@@ -4,7 +4,7 @@ const createChatBotAcc = require("./scripts/createChatBotAcc");
 const { spawn } = require("child_process");
 
 const countOfUsers = 1000;
-const firstUserIndex = 1000;
+const firstUserIndex = 0;
 
 async function run() {
   await createChatBotAcc();

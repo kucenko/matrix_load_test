@@ -4,11 +4,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "chat-bot": "node chatBot.js"
+    "chat-bot": "node chatBot.js",
+    "stop-docker": "concurrently \"rm botData.json\" \"docker-compose down\"",
+    "start-docker": "docker-compose up"
   },
   "dependencies": {
-    "matrix-js-sdk": "^9.9.0",
     "axios": "^0.21.1",
-    "matrix-bot-sdk": "^0.5.16"
+    "concurrently": "^6.0.0",
+    "matrix-bot-sdk": "^0.5.16",
+    "matrix-js-sdk": "^9.9.0"
   }
 }
