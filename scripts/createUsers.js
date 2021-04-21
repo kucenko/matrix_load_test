@@ -7,6 +7,7 @@ const url = constants.homeserverUrl;
 
 async function registerUser(i) {
   try {
+    addRequest();
     const response = await axios.post(
       `${url}/_matrix/client/r0/register`,
       {

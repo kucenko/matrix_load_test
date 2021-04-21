@@ -258,8 +258,14 @@ listeners:
     x_forwarded: true
 
     resources:
-      - names: [client, federation]
+      - names: [client, federation, metrics]
         compress: false
+  # - port: 9093
+  #   bind_address: '127.0.0.1'
+  #   type: http
+  #   resources:
+  #    - names: [replication]
+
 
     # example additional_resources:
     #
@@ -274,6 +280,11 @@ listeners:
   #- port: 9000
   #  bind_addresses: ['::1', '127.0.0.1']
   #  type: manhole
+
+  - type: metrics
+    port: 9009
+    bind_addresses:
+      - '0.0.0.0'
 
 # Forward extremities can build up in a room due to networking delays between
 # homeservers. Once this happens in a large room, calculation of the state of
@@ -699,7 +710,7 @@ acme:
 # The number of events to cache in memory. Not affected by
 # caches.global_factor.
 #
-#event_cache_size: 10K
+event_cache_size: 100K
 
 caches:
    # Controls the global cache factor, which is the default cache factor
@@ -766,8 +777,8 @@ database:
     password: password
     database: synapse
     host: postgres
-    cp_min: 5
-    cp_max: 10
+    cp_min: 20
+    cp_max: 50
 
 # For more information on using Synapse with Postgres, see `docs/postgres.md`.
 #
@@ -883,15 +894,15 @@ rc_invites:
 #
 # The defaults are as shown below.
 #
-#rc_federation:
-#  window_size: 1000
-#  sleep_limit: 10
-#  sleep_delay: 500
-#  reject_limit: 50
-#  concurrent: 3
-federation_rc_window_size: 2000
-federation_rc_reject_limit: 2000
-federation_rc_concurrent: 2000
+rc_federation:
+ window_size: 500
+ sleep_limit: 500
+ sleep_delay: 10
+ reject_limit: 5000
+ concurrent: 10000
+# federation_rc_window_size: 2000
+# federation_rc_reject_limit: 2000
+# federation_rc_concurrent: 2000
 
 # Target outgoing federation transaction frequency for sending read-receipts,
 # per-room.
@@ -899,7 +910,7 @@ federation_rc_concurrent: 2000
 # If we end up trying to send out more read-receipts, they will get buffered up
 # into fewer transactions.
 #
-#federation_rr_transactions_per_room_per_second: 50
+federation_rr_transactions_per_room_per_second: 2000
 
 
 
@@ -1401,7 +1412,7 @@ account_threepid_delegates:
 
 # Enable collection and rendering of performance metrics
 #
-#enable_metrics: false
+enable_metrics: true
 
 # Enable sentry integration
 # NOTE: While attempts are made to ensure that the logs don't contain
@@ -2807,22 +2818,22 @@ opentracing:
 #
 # By default this is unused and traffic is not authenticated.
 #
-#worker_replication_secret: ""
+# worker_replication_secret: "test"
 
 
 # Configuration for Redis when using workers. This *must* be enabled when
 # using workers (unless using old style direct TCP configuration).
 #
-redis:
+# redis:
   # Uncomment the below to enable Redis support.
   #
-  #enabled: true
+  # enabled: true
 
   # Optional host and port to use to connect to redis. Defaults to
   # localhost and 6379
   #
-  #host: localhost
-  #port: 6379
+  # host: redis
+  # port: 6379
 
   # Optional password if configured on the Redis instance
   #
